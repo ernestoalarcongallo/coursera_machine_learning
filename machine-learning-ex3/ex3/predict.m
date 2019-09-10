@@ -24,22 +24,15 @@ p = zeros(size(X, 1), 1);
 
 n = size(X, 2);
 
-a1 = zeros(m,n+1);
-a1(1,1) = 1;
-a1(1,2:(n+1)) = X;
+a1 = [ones(m, 1) X];
 
-for j = 1:2
-  z = Theta(j) * a(j)';
-  g_z = sigmoid(z);
-  p(j) = 
-end
+z2 = a1*Theta1';
+a2 = [ones(size(z2, 1), 1) sigmoid(z2)];
 
-fprintf('m %f \n', m);
-fprintf('n %f \n', n);
-fprintf('Theta1 %f \n', size(Theta1));
-fprintf('Theta2 %f \n', size(Theta2));
-fprintf('X %f \n', size(X));
-fprintf('a1 %f \n', size(a1));
+z3 = a2*Theta2';
+a3 = sigmoid(z3);
+
+[_, p] = max(a3, [], 2);
 
 
 % =========================================================================
