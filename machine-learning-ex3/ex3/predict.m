@@ -22,11 +22,24 @@ p = zeros(size(X, 1), 1);
 %
 
 
+n = size(X, 2);
 
+a1 = zeros(m,n+1);
+a1(1,1) = 1;
+a1(1,2:(n+1)) = X;
 
+for j = 1:2
+  z = Theta(j) * a(j)';
+  g_z = sigmoid(z);
+  p(j) = 
+end
 
-
-
+fprintf('m %f \n', m);
+fprintf('n %f \n', n);
+fprintf('Theta1 %f \n', size(Theta1));
+fprintf('Theta2 %f \n', size(Theta2));
+fprintf('X %f \n', size(X));
+fprintf('a1 %f \n', size(a1));
 
 
 % =========================================================================

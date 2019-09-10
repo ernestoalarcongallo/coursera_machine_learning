@@ -37,12 +37,14 @@ grad = zeros(size(theta));
 %
 
 
+z = X * theta;
+prediction = sigmoid(X * theta);
+n = size(theta,1);
 
+J = ((1/m) * sum(-y'*log(prediction) - (1-y)' * log(1 - prediction))) + ((lambda/(2*m)) * sum(theta(2:n).^2));
 
-
-
-
-
+grad = (1/m) * X' * (prediction - y);
+grad(2:n, :) = grad(2:n, :) + (lambda/m) * theta(2:n);
 
 
 % =============================================================
