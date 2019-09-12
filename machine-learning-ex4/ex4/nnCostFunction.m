@@ -63,20 +63,35 @@ Theta2_grad = zeros(size(Theta2));
 %
 
 
+% Forward propagation:
+a1 = [ones(m,1) X];
+
+z2 = a1 *  Theta1';
+a2 = [ones(size(z2, 1), 1) sigmoid(z2)];
+
+z3 = a2 * Theta2';
+a3 = sigmoid(z3);
+
+% Regularization: 
+% 1- Square every single theta excluding the Theta0 (.^2)
+% 2- Sum axis 2, this will sum the columns.
+% 3- Sum standard (rows), to get a scalar
+sumSquaredThetas1 = sum(sum(Theta1(:, 2:end).^2, 2));
+sumSquaredThetas2 = sum(sum(Theta2(:, 2:end).^2, 2));
+regularization = (lambda * (sumSquaredThetas1 + sumSquaredThetas2)) / (2 * m);
+
+% Implement Cost Function:
+% 1- Multiply every single 'y' to every single log(h) as we are working with vectors
+J = ((1/m) * sum(-y'*log(a3) - (1-y)' * log(1 - a3))) + regularization;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+% fprintf('\n========== Y function ===========\n');
+% fprintf('%i ', size(y'));
+% fprintf('\n========== a3 function ==========\n');
+% fprintf('%i ', size(log(a3)));
+% fprintf('\n========== J function ==========\n');
+% fprintf('%i ', size(J));
+% fprintf('\n=================================\n');
 
 
 
