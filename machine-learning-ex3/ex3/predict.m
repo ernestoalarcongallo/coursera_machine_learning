@@ -22,8 +22,6 @@ p = zeros(size(X, 1), 1);
 %
 
 
-n = size(X, 2);
-
 a1 = [ones(m, 1) X];
 
 z2 = a1*Theta1';
