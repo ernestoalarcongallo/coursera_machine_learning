@@ -63,37 +63,60 @@ Theta2_grad = zeros(size(Theta2));
 %
 
 
+% Convert y 5000x1 to a y 5000x10 with a 0-1 interval
+% 1- Create a Indentity model matrix 10x10
+% 2- Use the value of every y as a index to search in the 
+%    identity matrix and assign the value one in that position
+n = num_labels;
+identityMatrix = eye(n);
+Y = zeros(m,n);
+for i=1:m
+  Y(i,:) = identityMatrix(y(i),:); % (5000,10)
+endfor
+
 % Forward propagation:
-a1 = [ones(m,1) X];
+a1 = [ones(m,1) X]; % (5000,401)
 
-z2 = a1 *  Theta1';
-a2 = [ones(size(z2, 1), 1) sigmoid(z2)];
+z2 = a1 *  Theta1'; % (5000,25)
+a2 = [ones(size(z2, 1), 1) sigmoid(z2)]; % (5000,26)
 
-z3 = a2 * Theta2';
-a3 = sigmoid(z3);
+z3 = a2 * Theta2'; % (5000x26) * (26x10) = (5000x10)
+a3 = sigmoid(z3); % (5000x10)
+
+h = a3;
 
 % Regularization: 
 % 1- Square every single theta excluding the Theta0 (.^2)
 % 2- Sum axis 2, this will sum the columns.
-% 3- Sum standard (rows), to get a scalar
+% 3- Sum standard (rows), to get a scalar.
 sumSquaredThetas1 = sum(sum(Theta1(:, 2:end).^2, 2));
 sumSquaredThetas2 = sum(sum(Theta2(:, 2:end).^2, 2));
-regularization = (lambda * (sumSquaredThetas1 + sumSquaredThetas2)) / (2 * m);
+regularization = lambda * (sumSquaredThetas1 + sumSquaredThetas2) / (2 * m);
 
 % Implement Cost Function:
-% 1- Multiply every single 'y' to every single log(h) as we are working with vectors
-J = ((1/m) * sum(-y'*log(a3) - (1-y)' * log(1 - a3))) + regularization;
+% 1- Need to multiply each y_k vector [1 0 0 ... 0] to the log(h), so need to use wise product.
+% 2- Need to sum by column and then sum the columns to obtain the cost.
+J = (1/m) * sum(sum(-Y .* log(h) - (1-Y) .* log(1-h), 2)) + regularization;
 
+% Calculate deltas: There's no delta 1.
+d3 = a3 .- Y; % (5000 x 10) - (5000 x 10) = (5000x10)
+d2 = (d3 * Theta2) .* sigmoidGradient([ones(size(z2, 1), 1) z2]); % (5000x25)
+d2 = d2(:, 2:end);
 
-% fprintf('\n========== Y function ===========\n');
-% fprintf('%i ', size(y'));
-% fprintf('\n========== a3 function ==========\n');
-% fprintf('%i ', size(log(a3)));
-% fprintf('\n========== J function ==========\n');
-% fprintf('%i ', size(J));
-% fprintf('\n=================================\n');
+% Calculate the accumulated gradients:
+acc_grad2 = d3' * a2; % (10x5000) * (5000x26) = (10x26)
+acc_grad1 = d2' * a1; % (25x5000) * (5000x401) = (20x401)
 
+% Calculate regularization:
+% NOTE: regularization is never calculated over Theta_zero
+Theta1_reg = [zeros(size(Theta1, 1), 1) Theta1(:, 2:end)];
+Theta2_reg = [zeros(size(Theta2 ,1), 1) Theta2(:, 2:end)];
+reg1 = (lambda/m) * Theta1_reg;
+reg2 = (lambda/m) * Theta2_reg;
 
+% Obtain unregularized gradient for the neural network cost function:
+Theta1_grad = acc_grad1 ./ m + reg1;
+Theta2_grad = acc_grad2 ./ m + reg2;
 
 % -------------------------------------------------------------
 
