@@ -331,3 +331,5 @@ ASALocalRun/
 .vscode/launch.json
 machine-learning-ex3/ex3/token.mat
 machine-learning-ex4/ex4/octave-workspace
+machine-learning-ex5/ex5/octave-workspace
+machine-learning-ex5/ex5/token.mat
