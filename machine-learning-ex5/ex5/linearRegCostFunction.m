@@ -20,14 +20,13 @@ grad = zeros(size(theta));
 %
 
 
+prediction = X * theta;
+regularization = sum(theta(2:end).^2) * (lambda/(2*m));
 
+J = (sum((prediction - y).^2) / (2*m)) + regularization;
 
-
-
-
-
-
-
+grad = (1/m) * X' * (prediction - y);
+grad(2:end) = grad(2:end) + (lambda/m) * theta(2:end);
 
 
 % =========================================================================
