@@ -38,7 +38,7 @@ fprintf(' %d', word_indices);
 fprintf('\n\n');
 
 fprintf('Program paused. Press enter to continue.\n');
-pause;
+% pause;
 
 %% ==================== Part 2: Feature Extraction ====================
 %  Now, you will convert each email into a vector of features in R^n. 
@@ -57,7 +57,7 @@ fprintf('Length of feature vector: %d\n', length(features));
 fprintf('Number of non-zero entries: %d\n', sum(features > 0));
 
 fprintf('Program paused. Press enter to continue.\n');
-pause;
+% pause;
 
 %% =========== Part 3: Train Linear SVM for Spam Classification ========
 %  In this section, you will train a linear classifier to determine if an
@@ -90,7 +90,7 @@ fprintf('\nEvaluating the trained Linear SVM on a test set ...\n')
 p = svmPredict(model, Xtest);
 
 fprintf('Test Accuracy: %f\n', mean(double(p == ytest)) * 100);
-pause;
+% pause;
 
 
 %% ================= Part 5: Top Predictors of Spam ====================
@@ -112,7 +112,7 @@ end
 
 fprintf('\n\n');
 fprintf('\nProgram paused. Press enter to continue.\n');
-pause;
+% pause;
 
 %% =================== Part 6: Try Your Own Emails =====================
 %  Now that you've trained the spam classifier, you can use it on your own
