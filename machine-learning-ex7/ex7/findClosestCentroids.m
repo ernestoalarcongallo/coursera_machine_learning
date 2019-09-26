@@ -22,9 +22,17 @@ idx = zeros(size(X,1), 1);
 %
 
 
-
-
-
+for i = 1:size(X, 1)
+  minimum = inf;
+  for j = 1:K
+    diff = X(i, :)' - centroids(j, :)';
+    diff = diff' * diff;
+    if diff < minimum
+      idx(i) = j;
+      minimum = diff;
+    end
+  end
+end
 
 
 % =============================================================
