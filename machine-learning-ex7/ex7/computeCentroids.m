@@ -27,11 +27,20 @@ centroids = zeros(K, n);
 %
 
 
-
-
-
-
-
+for k = 1:K
+  Xidx = [];
+  for i = 1:m
+    if (idx(i)==k)
+      Xidx = [Xidx; X(i, :)];
+    end
+  end 
+  
+  numKX = size(Xidx, 1);
+  if (numKX ~= 0)
+    centroid = (1/numKX) .* sum(Xidx);
+    centroids(k, :) = centroid;
+  end
+end
 
 % =============================================================
 
