@@ -40,7 +40,7 @@ ylabel('Movies');
 xlabel('Users');
 
 fprintf('\nProgram paused. Press enter to continue.\n');
-pause;
+% pause;
 
 %% ============ Part 2: Collaborative Filtering Cost Function ===========
 %  You will now implement the cost function for collaborative filtering.
@@ -66,7 +66,7 @@ fprintf(['Cost at loaded parameters: %f '...
          '\n(this value should be about 22.22)\n'], J);
 
 fprintf('\nProgram paused. Press enter to continue.\n');
-pause;
+% pause;
 
 
 %% ============== Part 3: Collaborative Filtering Gradient ==============
@@ -80,7 +80,7 @@ fprintf('\nChecking Gradients (without regularization) ... \n');
 checkCostFunction;
 
 fprintf('\nProgram paused. Press enter to continue.\n');
-pause;
+% pause;
 
 
 %% ========= Part 4: Collaborative Filtering Cost Regularization ========
@@ -97,7 +97,7 @@ fprintf(['Cost at loaded parameters (lambda = 1.5): %f '...
          '\n(this value should be about 31.34)\n'], J);
 
 fprintf('\nProgram paused. Press enter to continue.\n');
-pause;
+% pause;
 
 
 %% ======= Part 5: Collaborative Filtering Gradient Regularization ======
@@ -112,7 +112,7 @@ fprintf('\nChecking Gradients (with regularization) ... \n');
 checkCostFunction(1.5);
 
 fprintf('\nProgram paused. Press enter to continue.\n');
-pause;
+% pause;
 
 
 %% ============== Part 6: Entering ratings for a new user ===============
@@ -154,7 +154,7 @@ for i = 1:length(my_ratings)
 end
 
 fprintf('\nProgram paused. Press enter to continue.\n');
-pause;
+% pause;
 
 
 %% ================== Part 7: Learning Movie Ratings ====================
@@ -208,7 +208,7 @@ Theta = reshape(theta(num_movies*num_features+1:end), ...
 fprintf('Recommender system learning completed.\n');
 
 fprintf('\nProgram paused. Press enter to continue.\n');
-pause;
+% pause;
 
 %% ================== Part 8: Recommendation for you ====================
 %  After training the model, you can now make recommendations by computing
