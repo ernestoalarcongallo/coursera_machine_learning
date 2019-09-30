@@ -41,7 +41,11 @@ Theta_grad = zeros(size(Theta));
 %
 
 
-J = (1/2) * sum(sum(((X*Theta'-Y).^2)(R==1)));
+prediction = X*Theta'-Y;
+J = (1/2) * sum(sum((prediction.^2)(R==1)));
+
+X_grad = ((prediction).*R) * Theta;
+Theta_grad = ((prediction).*R)' * X;
 
 
 % =============================================================
